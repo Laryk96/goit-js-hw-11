@@ -1,27 +1,6 @@
 const API_KEY = '32042455-62ff17051f805cdef5e52ab83';
 const BASE_URL = 'https://pixabay.com/api/';
 
-// function searchImg(search) {
-//   const searchParams = new URLSearchParams({
-//     key: API_KEY,
-//     q: search,
-//     image_type: 'photo',
-//     orientation: 'horizontal',
-//     safesearch: true,
-//     page: 1,
-//     per_page: 20,
-//   });
-//   const url = `${BASE_URL}?${searchParams}`;
-
-//   return fetch(url).then(response => {
-//     if (response.ok) {
-//       return response.json();
-//     }
-
-//     throw new Error(response.message);
-//   });
-// }
-
 export default class NewApiService {
   constructor() {
     this._search = '';

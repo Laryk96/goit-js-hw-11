@@ -1,5 +1,5 @@
 import { refs } from './refs';
-import SimpleLightbox from 'simplelightbox';
+
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 function renderCards(dataImages) {
@@ -45,12 +45,12 @@ function renderCards(dataImages) {
 
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-  new SimpleLightbox('.gallery a', {
-    captions: true,
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-    captionDelay: 250,
-  });
+  // new SimpleLightbox('.gallery a', {
+  //   captions: true,
+  //   captionsData: 'alt',
+  //   captionPosition: 'bottom',
+  //   captionDelay: 250,
+  // });
 }
 
 export { renderCards };
