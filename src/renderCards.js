@@ -1,0 +1,56 @@
+import { refs } from './refs';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+function renderCards(dataImages) {
+  const images = dataImages.hits;
+
+  const markup = images
+    .map(image => {
+      const {
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      } = image;
+
+      return `
+      <a href="${largeImageURL}">
+      <div class="photo-card">
+  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes</b>
+      ${likes}
+    </p>
+    <p class="info-item">
+      <b>Views</b>
+      ${views}
+    </p>
+    <p class="info-item">
+      <b>Comments</b>
+      ${comments}
+    </p>
+    <p class="info-item">
+      <b>Downloads</b>
+      ${downloads}
+    </p>
+  </div>
+</div></a>`;
+    })
+    .join('');
+
+  refs.gallery.insertAdjacentHTML('beforeend', markup);
+
+  new SimpleLightbox('.gallery a', {
+    captions: true,
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    captionDelay: 250,
+  });
+}
+
+export { renderCards };
