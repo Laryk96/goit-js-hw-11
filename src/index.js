@@ -23,8 +23,8 @@ function onSubmitForm(e) {
   if (inputValue.trim() === '') {
     return;
   }
-  refs.gallery.innerHTML = '';
 
+  refs.gallery.innerHTML = '';
   apiServise.search = inputValue;
   apiServise.resetPage();
   apiServise
@@ -56,19 +56,23 @@ function onLoadMore() {
       renderCards(images);
       simpleLightbox.refresh();
       refs.moreImgButton.classList.remove('hidden');
-      smoothScroll();
     })
     .catch(error => console.log(error.message))
-    .finally(refs.moreImgButton.removeAttribute('disabled'));
+    .finally(() => {
+      refs.moreImgButton.removeAttribute('disabled');
+      smoothScroll();
+    });
 }
 
 function smoothScroll() {
-  const { height: cardHeight } = document
-    .querySelector('.gallery')
-    .firstElementChild.getBoundingClientRect();
-
-  window.scrollBy({
-    top: cardHeight * 2,
-    behavior: 'smooth',
-  });
+  setTimeout(() => {
+    const { height: cardHeight } = document
+      .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+    console.log(cardHeight);
+    window.scrollBy({
+      top: cardHeight * 50,
+      behavior: 'smooth',
+    });
+  }, 150);
 }
