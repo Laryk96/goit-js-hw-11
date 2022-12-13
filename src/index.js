@@ -74,5 +74,5 @@ function smoothScroll() {
       top: cardHeight * 50,
       behavior: 'smooth',
     });
-  }, 150);
+  }, 200);
 }
