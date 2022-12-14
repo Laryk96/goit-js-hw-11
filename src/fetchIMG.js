@@ -1,3 +1,4 @@
+import axios from 'axios';
 const API_KEY = '32042455-62ff17051f805cdef5e52ab83';
 const BASE_URL = 'https://pixabay.com/api/';
 
@@ -19,13 +20,7 @@ export default class NewApiService {
     });
     const url = `${BASE_URL}?${searchParams}`;
 
-    return fetch(url).then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-
-      throw new Error(response.message);
-    });
+    return axios.get(url);
   }
 
   get search() {

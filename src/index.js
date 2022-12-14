@@ -27,41 +27,46 @@ function onSubmitForm(e) {
   refs.gallery.innerHTML = '';
   apiServise.search = inputValue;
   apiServise.resetPage();
-  apiServise
-    .featchImg()
-    .then(images => {
-      if (images.hits.length === 0) {
+
+  try {
+    apiServise.featchImg().then(images => {
+      const amountElement = images.data.hits.length;
+      if (amountElement === 0) {
         return Notiflix.Notify.failure('Nothing was found for your request');
       }
       Notiflix.Notify.info(`Hooray! We found ${images.totalHits} images.`);
       renderCards(images);
       simpleLightbox.refresh();
       refs.moreImgButton.classList.remove('hidden');
-    })
-    .catch(error => console.log(error.message));
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 function onLoadMore() {
   refs.moreImgButton.setAttribute('disabled', true);
   apiServise.incrementPage();
-  apiServise
-    .featchImg()
-    .then(images => {
-      if (images.hits.length === 0) {
+
+  try {
+    apiServise.featchImg().then(images => {
+      const amountElement = images.data.hits.length;
+      if (amountElement === 0) {
         refs.moreImgButton.classList.add('hidden');
         return Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
       }
-      renderCards(images);
-      simpleLightbox.refresh();
-      refs.moreImgButton.classList.remove('hidden');
-    })
-    .catch(error => console.log(error.message))
-    .finally(() => {
-      refs.moreImgButton.removeAttribute('disabled');
-      smoothScroll();
     });
+  } catch (error) {
+    return console.log(error.message);
+  }
+
+  renderCards(images);
+  simpleLightbox.refresh();
+  refs.moreImgButton.classList.remove('hidden');
+  refs.moreImgButton.removeAttribute('disabled');
+  smoothScroll();
 }
 
 function smoothScroll() {
@@ -69,7 +74,6 @@ function smoothScroll() {
     const { height: cardHeight } = document
       .querySelector('.gallery')
       .firstElementChild.getBoundingClientRect();
-    console.log(cardHeight);
     window.scrollBy({
       top: cardHeight * 50,
       behavior: 'smooth',

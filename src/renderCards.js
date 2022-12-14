@@ -3,8 +3,7 @@ import { refs } from './refs';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 function renderCards(dataImages) {
-  const images = dataImages.hits;
-
+  const images = dataImages.data.hits;
   const markup = images
     .map(image => {
       const {
@@ -44,13 +43,6 @@ function renderCards(dataImages) {
     .join('');
 
   refs.gallery.insertAdjacentHTML('beforeend', markup);
-
-  // new SimpleLightbox('.gallery a', {
-  //   captions: true,
-  //   captionsData: 'alt',
-  //   captionPosition: 'bottom',
-  //   captionDelay: 250,
-  // });
 }
 
 export { renderCards };
