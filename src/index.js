@@ -19,9 +19,9 @@ refs.moreImgButton.classList.add('hidden');
 function onSubmitForm(e) {
   e.preventDefault();
   refs.moreImgButton.classList.add('hidden');
-  const inputValue = e.currentTarget.elements.searchQuery.value;
+  const inputValue = e.currentTarget.elements.searchQuery.value.trim();
 
-  if (inputValue.trim() === '') {
+  if (inputValue === '') {
     return;
   }
 
