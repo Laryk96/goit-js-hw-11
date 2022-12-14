@@ -19,7 +19,7 @@ refs.moreImgButton.classList.add('hidden');
 function onSubmitForm(e) {
   e.preventDefault();
   const inputValue = e.currentTarget.elements.searchQuery.value;
-
+  refs.moreImgButton.classList.add('hidden');
   if (inputValue.trim() === '') {
     return;
   }
@@ -34,7 +34,7 @@ function onSubmitForm(e) {
       if (amountElement === 0) {
         return Notiflix.Notify.failure('Nothing was found for your request');
       }
-      Notiflix.Notify.info(`Hooray! We found ${images.totalHits} images.`);
+      Notiflix.Notify.info(`Hooray! We found ${images.data.totalHits} images.`);
       renderCards(images);
       simpleLightbox.refresh();
       refs.moreImgButton.classList.remove('hidden');
