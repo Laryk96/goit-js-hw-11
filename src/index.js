@@ -18,8 +18,9 @@ refs.moreImgButton.classList.add('hidden');
 
 function onSubmitForm(e) {
   e.preventDefault();
-  const inputValue = e.currentTarget.elements.searchQuery.value;
   refs.moreImgButton.classList.add('hidden');
+  const inputValue = e.currentTarget.elements.searchQuery.value;
+
   if (inputValue.trim() === '') {
     return;
   }
@@ -51,22 +52,24 @@ function onLoadMore() {
   try {
     apiServise.featchImg().then(images => {
       const amountElement = images.data.hits.length;
+
       if (amountElement === 0) {
         refs.moreImgButton.classList.add('hidden');
         return Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
       }
+
+      renderCards(images);
+      smoothScroll();
+      simpleLightbox.refresh();
     });
   } catch (error) {
     return console.log(error.message);
   }
 
-  renderCards(images);
-  simpleLightbox.refresh();
   refs.moreImgButton.classList.remove('hidden');
   refs.moreImgButton.removeAttribute('disabled');
-  smoothScroll();
 }
 
 function smoothScroll() {
