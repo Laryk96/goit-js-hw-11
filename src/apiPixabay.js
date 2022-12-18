@@ -6,6 +6,7 @@ export default class NewApiService {
   constructor() {
     this._search = '';
     this.page = 1;
+    this.counterImages = 0;
   }
 
   async featchImg() {
@@ -21,6 +22,7 @@ export default class NewApiService {
     const url = `${BASE_URL}?${searchParams}`;
 
     const response = await axios.get(url);
+
     return await response.data;
   }
 

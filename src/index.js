@@ -3,7 +3,6 @@ import SimpleLightbox from 'simplelightbox';
 import NewApiService from './apiPixabay';
 import { refs } from './refs';
 import { renderCards } from './renderCards';
-// import autoScroll from './autoScroll';
 
 const apiServise = new NewApiService();
 const simpleLightbox = new SimpleLightbox('.gallery a', {
@@ -31,16 +30,17 @@ async function onSubmitForm(e) {
 
   try {
     const images = await apiServise.featchImg();
-    const amountElement = images.hits.length;
-    console.log(images.hits.length);
-    if (images.hits.length < 20) {
+    apiServise.counterImages = images.hits.length;
+
+    if (apiServise.counterImages < 20) {
       refs.moreImgButton.classList.add('hidden');
     }
-
-    if (amountElement === 0) {
+    if (apiServise.counterImages === 0) {
       return Notiflix.Notify.failure('Nothing was found for your request');
     }
-    Notiflix.Notify.info(`Hooray! We found ${images.total} images.`);
+
+    Notiflix.Notify.info(`Hooray! We found ${images.totalHits} images.`);
+
     await renderCards(images.hits);
     simpleLightbox.refresh();
     refs.moreImgButton.classList.remove('hidden');
@@ -51,13 +51,22 @@ async function onSubmitForm(e) {
 
 async function onLoadMore() {
   apiServise.incrementPage();
-
   try {
     const images = await apiServise.featchImg();
+    apiServise.counterImages += images.hits.length;
+    if (apiServise.counterImages === images.totalHits) {
+      refs.moreImgButton.classList.add('hidden');
+      return Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
     await renderCards(images.hits);
     await simpleLightbox.refresh();
   } catch (error) {
-    return console.log(error.message);
+    refs.moreImgButton.classList.add('hidden');
+    return Notiflix.Notify.warning(
+      "We're sorry, but you've reached the end of search results."
+    );
   }
 }
 
