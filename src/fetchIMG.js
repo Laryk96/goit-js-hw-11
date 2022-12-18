@@ -8,7 +8,7 @@ export default class NewApiService {
     this.page = 1;
   }
 
-  featchImg() {
+  async featchImg() {
     const searchParams = new URLSearchParams({
       key: API_KEY,
       q: this._search,
@@ -20,7 +20,8 @@ export default class NewApiService {
     });
     const url = `${BASE_URL}?${searchParams}`;
 
-    return axios.get(url);
+    const response = await axios.get(url);
+    return await response.data;
   }
 
   get search() {

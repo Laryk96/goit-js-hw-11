@@ -2,8 +2,7 @@ import { refs } from './refs';
 
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-function renderCards(dataImages) {
-  const images = dataImages.data.hits;
+function renderCards(images) {
   const markup = images
     .map(image => {
       const {
