@@ -3,19 +3,23 @@ import { refs } from './refs';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 function renderCards(images) {
-  const markup = images
-    .map(image => {
-      const {
-        webformatURL,
-        largeImageURL,
-        tags,
-        likes,
-        views,
-        comments,
-        downloads,
-      } = image;
+  const markup = images.map(createCard).join(' ');
 
-      return `
+  refs.gallery.insertAdjacentHTML('beforeend', markup);
+}
+
+const createCard = function (image) {
+  const {
+    webformatURL,
+    largeImageURL,
+    tags,
+    likes,
+    views,
+    comments,
+    downloads,
+  } = image;
+
+  return `
       <a href="${largeImageURL}">
       <div class="photo-card">
   <img src="${webformatURL}" alt="${tags}" loading="lazy" />
@@ -38,10 +42,6 @@ function renderCards(images) {
     </p>
   </div>
 </div></a>`;
-    })
-    .join('');
-
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
-}
+};
 
 export { renderCards };

@@ -29,7 +29,7 @@ async function onSubmitForm(e) {
   apiServise.resetPage();
 
   try {
-    const images = await apiServise.featchImg();
+    const images = await apiServise.fetchImg();
     apiServise.counterImages = images.hits.length;
 
     if (apiServise.counterImages < 20) {
@@ -52,7 +52,7 @@ async function onSubmitForm(e) {
 async function onLoadMore() {
   apiServise.incrementPage();
   try {
-    const images = await apiServise.featchImg();
+    const images = await apiServise.fetchImg();
     apiServise.counterImages += images.hits.length;
     if (apiServise.counterImages === images.totalHits) {
       refs.moreImgButton.classList.add('hidden');
