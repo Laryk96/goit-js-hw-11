@@ -9,7 +9,7 @@ export default class NewApiService {
     this.counterImages = 0;
   }
 
-  async featchImg() {
+  async fetchImg() {
     const searchParams = new URLSearchParams({
       key: API_KEY,
       q: this._search,
